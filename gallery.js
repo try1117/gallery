@@ -13,7 +13,10 @@
         loadImage(image, imageURL, defaultImageURL) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
-                if (xhr.readyState <= 3) {
+                if (xhr.readyState == 2) {
+                    alert(2);
+                }
+                if (xhr.readyState == 3) {
                     // loading
                     image.src = defaultImageURL;
                 }
@@ -23,10 +26,6 @@
                     });
                     var blobUrl = window.URL.createObjectURL(blob);
                     image.src = blobUrl;
-                }
-                else {
-                    // image.src = defaultImageURL;
-                    // alert(xhr.status);
                 }
             }
 
