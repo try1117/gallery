@@ -1,0 +1,11 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: horizontal;
+}
+
+.gallery > img {
+    height: 250px;
+    width: auto;
+    padding: 5px;
+}
