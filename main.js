@@ -1,4 +1,5 @@
-let defaultImageURL = "http://seismonepal.gov.np/assets/img/no_image.jpg";
+// let defaultImageURL = "http://seismonepal.gov.np/assets/img/no_image.jpg";
+let defaultImageURL = "images/placeholder.jpg";
 
 // let imagesURL = [
 //     "https://upload.wikimedia.org/wikipedia/commons/9/93/20030820-antelope-canyon.jpg",
