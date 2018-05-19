@@ -1,5 +1,5 @@
 // let defaultImageURL = "http://seismonepal.gov.np/assets/img/no_image.jpg";
-let defaultImageURL = "images/placeholder.jpg";
+let defaultImageURL = "https://try1117.github.io/gallery/images/placeholder.jpg";
 
 // let imagesURL = [
 //     "https://upload.wikimedia.org/wikipedia/commons/9/93/20030820-antelope-canyon.jpg",
@@ -14,23 +14,71 @@ let defaultImageURL = "images/placeholder.jpg";
 //     "https://images.pexels.com/photos/349/pexels-photo.jpg",
 // ];
 
-let imagesURL = [
-    "images/0.jpg",
-    "images/1.jpg",
-    "images/2.jpg",
-    "images/3.jpg",
-    "images/4.jpg",
-    "images/5.jpg",
-    "images/6.jpg",
-    "images/7.jpg",
-    "images/8.jpg",
-    "images/9.jpg",
-    "images/10.jpg",
+let mainGalleryImagesURL = [
+    "https://try1117.github.io/gallery/images/0.jpg",
+    "https://try1117.github.io/gallery/images/1.jpg",
+    "https://try1117.github.io/gallery/images/2.jpg",
+    "https://try1117.github.io/gallery/images/3.jpg",
+    "https://try1117.github.io/gallery/images/4.jpg",
+    "https://try1117.github.io/gallery/images/5.jpg",
+    "https://try1117.github.io/gallery/images/6.jpg",
+    "https://cdn.pixabay.com/photo/2017/11/07/00/07/fantasy-2925250_960_720.jpg",
+    "https://try1117.github.io/gallery/images/7.jpg",
+    "https://try1117.github.io/gallery/images/8.jpg",
+    "https://try1117.github.io/gallery/images/9.jpg",
+    "https://try1117.github.io/gallery/images/10.jpg",
+    "https://try1117.github.io/gallery/images/11.jpg",
+    "https://images.pexels.com/photos/34950/pexels-photo.jpg",
+    "https://i.imgur.com/4y0EZuG.jpg",
+    "https://i.imgur.com/CrHYfTG.jpg",
+    "https://i.imgur.com/gQp3VSW.jpg",
+    "https://i.imgur.com/M0SKsEE.jpg",
+    "https://i.imgur.com/aBONniI.jpg",
+    "https://i.imgur.com/eb4dOra.jpg",
+    "https://i.imgur.com/qBz4xcn.jpg",
+    "https://i.imgur.com/YEBeHG1.jpg",
+    "https://i.imgur.com/oDwCk03.jpg",
+    "https://i.imgur.com/6lP5BND.jpg",
+    "https://i.imgur.com/hjHoxsp.jpg",
+    "https://i.imgur.com/WUNSgmp.jpg",
+    "https://i.imgur.com/PKU3RSE.jpg",
+    "https://i.imgur.com/9mgcdli.jpg",
+    "https://i.imgur.com/3NBq6n2.jpg",
+    "https://i.imgur.com/74YY5FE.jpg",
+    "https://i.imgur.com/EXsE5EM.jpg",
+    "https://i.imgur.com/FR5BxXW.jpg",
+    "https://i.imgur.com/05pGzjI.jpg",
+    "https://i.imgur.com/rS9ttuE.jpg",
+    "https://i.imgur.com/ypi2aRe.jpg",
 ];
 
 window.onload = function() {
-    let calendarContainers = document.getElementsByClassName('gallery');
-    for (let container of calendarContainers) {
-        new Gallery(container, imagesURL, defaultImageURL);
+    let createTotalProgressBar = (id) => new ProgressBar.Line("#" + id, {
+        strokeWidth: 6,
+        color: 'grey',
+        duration: 30,
+        easing: 'easeInOut'
+    });
+
+    let createImageProgressBar = (id) => new ProgressBar.Circle("#" + id, {
+        strokeWidth: 3,
+        color: 'grey',
+        duration: 30,
+        easing: 'easeInOut'
+    });
+
+    let galleriesParameters = [
+        [
+            'main-gallery',
+            'main-gallery-total-progress',
+            mainGalleryImagesURL,
+            defaultImageURL,
+            createTotalProgressBar,
+            createImageProgressBar
+        ],
+    ];
+
+    for (let galleryParameters of galleriesParameters) {
+        new Gallery(galleryParameters);
     }
 }

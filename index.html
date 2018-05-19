@@ -4,12 +4,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" type="text/css" href="index.css">
     <title>Gallery</title>
+
+    <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script>
     <script src="gallery.js"></script>
     <script src="main.js"></script>
 </head>
 
 <body>
-    <h1>disis my gallery</h1>
-    <div class="gallery"></div>
+    <div class="page-header">
+        <h1>Gallery loading</h1>
+        <div id="main-gallery-total-progress"></div>
+    </div>
+    <div class="gallery" id="main-gallery"></div>
 </body>
 </html>

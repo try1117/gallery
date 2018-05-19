@@ -1,11 +1,81 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-weight: 800; */
+}
+
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.page-header > * {
+    padding: 10px;
+}
+
+#total-load-progress {
+    width: 200px;
+    height: auto;
+    /* position: absolute; */
+}
+
+.total-load-progress > svg {
+    height: 100%;
+    display: block;
+}
+
 .gallery {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: horizontal;
+    flex-direction: row;
+    align-items: center;
 }
 
-.gallery > img {
-    height: 250px;
-    width: auto;
+.image-container > img {
+    /* height: 100%; */
+    /* width: auto; */
+    width: 100%;
+    height: auto;
+    /* transition: visibility 1s, opacity 0.5s linear; */
+}
+
+.image-container {
+    width: 33%;
+    height: auto;
+    box-sizing: border-box;
     padding: 5px;
+    /* height: 250px; */
+    /* min-width: 250px; */
+    /* margin: 5px; */
+    position: relative;
+}
+
+.progress {
+    /* height: 100px; */
+    /* width: 100px; */
+    height: 30%;
+    width: 30%;
+    position: absolute;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    top: 35%;
+    left: 35%;
+    z-index: 1;
+}
+
+.progress > svg {
+    height: 100%;
+    display: block;
+}
+
+.m-fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 1s linear 1.5s;
+}
+
+.m-fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 1s linear 1.5s;
 }
