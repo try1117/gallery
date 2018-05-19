@@ -1,26 +1,32 @@
 'use strict';
 
-let progressCircleCnt = 0;
-
 class Gallery {
     constructor(containerId, totalProgressBarId, imagesURL, defaultImageURL,
-        createImageProgressBar, createTotalProgressBar, maxRequestsAllowed = 5)
+        createImageProgressBar, createTotalProgressBar, imageProgressBarStyles,
+        maxRequestsAllowed = 5)
     {
+        this.containerId = containerId;
         this.container = document.getElementById(containerId);
-        this.totalProgressBarId = totalProgressBarId;
+        this.totalProgessBar = createTotalProgressBar(totalProgressBarId);
         this.imagesURL = imagesURL;
         this.defaultImageURL = defaultImageURL;
         this.createImageProgressBar = createImageProgressBar;
         this.createTotalProgressBar = createTotalProgressBar;
+        this.imageProgressBarStyles = imageProgressBarStyles;
         this.maxRequestsAllowed = maxRequestsAllowed;
+
+        this.imagesQueueIdx = maxRequestsAllowed;
+        this.progressBarCnt = 0;
         this.imagesLoaded = 0;
 
-        for (this.imagesLoaded = 0; this.imagesLoaded < Math.min(this.maxRequestsAllowed, imagesURL.length); ++this.imagesLoaded) {
-            this.loadImage(imagesURL[this.imagesLoaded], defaultImageURL);
+        for (let i = 0; i < Math.min(this.maxRequestsAllowed, imagesURL.length); ++i) {
+            this.loadImage(imagesURL[i]);
         }
     }
 
-    loadImage(imageURL, defaultImageURL) {
+    loadImage(imageURL) {
+        console.log('loadImage ' + imageURL);
+
         let imageContainer = document.createElement('div');
         imageContainer.classList.add('image-container');
         this.container.appendChild(imageContainer);
@@ -29,18 +35,12 @@ class Gallery {
         imageContainer.appendChild(image);
         image.classList.toggle('m-fadeOut');
 
-        let progressCircleElement = document.createElement('div');
-        progressCircleElement.classList.add('progress');
-        progressCircleElement.id = 'progressCircle_' + progressCircleCnt++;
-        imageContainer.appendChild(progressCircleElement);
+        let progressBarElement = document.createElement('div');
+        progressBarElement.classList.add(...this.imageProgressBarStyles);
+        progressBarElement.id = this.containerId + '_progressBar_' + this.progressBarCnt++;
+        imageContainer.appendChild(progressBarElement);
 
-        let progressCircle = new ProgressBar.Circle("#" + progressCircleElement.id, {
-            strokeWidth: 3,
-            color: 'grey',
-            duration: 30,
-            easing: 'easeInOut'
-        });
-
+        let progressBar = this.createImageProgressBar(progressBarElement.id);
         let self = this;
         let xhr = new XMLHttpRequest();
 
@@ -48,36 +48,35 @@ class Gallery {
             let minProgress = 0.05;
 
             if (xhr.readyState == 2) {
-                // alert(123);
-                progressCircle.animate(minProgress);
+                progressBar.animate(minProgress);
             }
-            if (xhr.readyState == 3) {
+            else if (xhr.readyState == 3) {
                 xhr.onprogress = function(e) {
-                    // let done = Math.max(minProgress, e.loaded / e.total);
-                    progressCircle.animate(Math.max(minProgress, e.loaded / e.total));
-                    // progressCircle.setText(Math.round(done));
-                    console.log(e.loaded / e.total);
+                    progressBar.animate(Math.max(minProgress, e.loaded / e.total));
+                    // console.log(e.loaded / e.total);
                 }
             }
-            if (xhr.readyState == 4) {
-                progressCircleElement.remove();
+            else if (xhr.readyState == 4) {
+                progressBarElement.remove();
                 if (xhr.status == 200) {
                     let blob = new Blob([xhr.response], {
                         type: xhr.getResponseHeader('Content-Type')
                     });
                     let blobUrl = window.URL.createObjectURL(blob);
                     image.src = blobUrl;
-                    }
+                }
                 else {
-                    image.src = defaultImageURL;
+                    image.src = self.defaultImageURL;
                 }
                 image.classList.toggle('m-fadeOut');
                 image.classList.toggle("m-fadeIn");
 
                 ++self.imagesLoaded;
-                if (self.imagesLoaded < self.imagesURL.length) {
-                    self.loadImage(self.imagesURL[self.imagesLoaded]);
+                console.log('TOTAL PROGRESS: ' + self.imagesLoaded / self.imagesURL.length);
+                self.totalProgessBar.animate(self.imagesLoaded / self.imagesURL.length);
 
+                if (self.imagesQueueIdx < self.imagesURL.length) {
+                    self.loadImage(self.imagesURL[self.imagesQueueIdx++]);
                 }
             }
         }
@@ -87,26 +86,3 @@ class Gallery {
         xhr.send();
     }
 }
-
-//
-// let defaultImageURL = ;
-//
-// let imagesURL = [
-//     "https://upload.wikimedia.org/wikipedia/commons/9/93/20030820-antelope-canyon.jpg",
-//     "https://cdn.pixabay.com/photo/2017/11/07/00/07/fantasy-2925250_960_720.jpg",
-//     "https://images.pexels.com/photos/34950/pexels-photo.jpg",
-//     "https://images.pexels.com/photos/34923/pexels-photo.jpg",
-//     "https://images.pexels.com/photos/34913/pexels-photo.jpg",
-//     "https://images.pexels.com/photos/34942/pexels-photo.jpg",
-//     "https://images.pexels.com/photos/34953/pexels-photo.jpg",
-//     "https://images.pexels.com/photos/34922/pexels-photo.jpg",
-//     "https://images.pexels.com/photos/34930/pexels-photo.jpg",
-//     "https://images.pexels.com/photos/349/pexels-photo.jpg",
-// ];
-//
-// window.onload = function() {
-//     let calendarContainers = document.getElementsByClassName('gallery');
-//     for (let container of calendarContainers) {
-//         new Gallery(container, imagesURL);
-//     }
-// }

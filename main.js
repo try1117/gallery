@@ -54,17 +54,20 @@ let mainGalleryImagesURL = [
 
 window.onload = function() {
     let createTotalProgressBar = (id) => new ProgressBar.Line("#" + id, {
-        strokeWidth: 6,
-        color: 'grey',
-        duration: 30,
-        easing: 'easeInOut'
+        strokeWidth: 10,
+        color: '#3a3a3a',
+        trailColor: '#f4f4f4',
+        duration: 50,
+        // easing: 'easeInOut'
     });
 
     let createImageProgressBar = (id) => new ProgressBar.Circle("#" + id, {
-        strokeWidth: 3,
-        color: 'grey',
-        duration: 30,
-        easing: 'easeInOut'
+        strokeWidth: 5,
+        color: '#3a3a3a',
+        trailWidth: 10,
+        trailColor: '#f4f4f4',
+        duration: 50,
+        // easing: 'easeInOut'
     });
 
     let galleriesParameters = [
@@ -73,12 +76,13 @@ window.onload = function() {
             'main-gallery-total-progress',
             mainGalleryImagesURL,
             defaultImageURL,
+            createImageProgressBar,
             createTotalProgressBar,
-            createImageProgressBar
+            ['progress-circle'],
         ],
     ];
 
     for (let galleryParameters of galleriesParameters) {
-        new Gallery(galleryParameters);
+        new Gallery(...galleryParameters);
     }
 }
