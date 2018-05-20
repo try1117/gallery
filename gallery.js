@@ -37,6 +37,7 @@ class Gallery {
         let image = document.createElement('img');
         imageContainer.appendChild(image);
         image.classList.toggle('m-fadeOut');
+        image.src = defaultImageURL;
 
         let progressBarElement = document.createElement('div');
         progressBarElement.classList.add(...this.imageProgressBarStyles);
@@ -61,6 +62,11 @@ class Gallery {
             }
             else if (xhr.readyState == 4) {
                 progressBarElement.remove();
+                // image.onload = () => {
+                //     image.classList.toggle('m-fadeOut');
+                //     image.classList.toggle("m-fadeIn");
+                // }
+
                 if (xhr.status == 200) {
                     let blob = new Blob([xhr.response], {
                         type: xhr.getResponseHeader('Content-Type')
@@ -71,6 +77,7 @@ class Gallery {
                 else {
                     image.src = self.defaultImageURL;
                 }
+
                 image.classList.toggle('m-fadeOut');
                 image.classList.toggle("m-fadeIn");
 
