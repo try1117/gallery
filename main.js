@@ -54,20 +54,22 @@ let mainGalleryImagesURL = [
 
 window.onload = function() {
     let createTotalProgressBar = (id) => new ProgressBar.Line("#" + id, {
-        strokeWidth: 10,
         color: '#3a3a3a',
-        trailColor: '#f4f4f4',
+        trailColor: 'darkgrey',
         duration: 50,
-        // easing: 'easeInOut'
+        text: {
+            style:{},
+            autoStyleContainer: true,
+        },
+        step: function(state, progressBar, attachment) {
+            progressBar.setText(Math.round(100 * progressBar.value()) + ' %');
+        },
     });
 
     let createImageProgressBar = (id) => new ProgressBar.Circle("#" + id, {
-        strokeWidth: 5,
+        strokeWidth: 6,
         color: '#3a3a3a',
-        trailWidth: 10,
-        trailColor: '#f4f4f4',
         duration: 50,
-        // easing: 'easeInOut'
     });
 
     let galleriesParameters = [

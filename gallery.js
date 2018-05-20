@@ -15,6 +15,9 @@ class Gallery {
         this.imageProgressBarStyles = imageProgressBarStyles;
         this.maxRequestsAllowed = maxRequestsAllowed;
 
+        console.log(this.totalProgessBar.text);
+        // debugger;
+
         this.imagesQueueIdx = maxRequestsAllowed;
         this.progressBarCnt = 0;
         this.imagesLoaded = 0;

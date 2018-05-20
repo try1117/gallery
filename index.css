@@ -1,46 +1,42 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    /* font-weight: 800; */
+    /* background-color: #a5adb0; */
 }
 
 .page-header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 
 .page-header > * {
-    padding: 10px;
+    margin: 10px 10px 10px 10px;
 }
 
 #main-gallery-total-progress {
     width: 200px;
     height: 15px;
-    /* position: absolute; */
 }
 
 #main-gallery-total-progress > svg {
     height: 100%;
-    /* width: 100%; */
     display: block;
-}
-
-.progress-line {
-    /* height: 100px; */
-    /* width: 100px; */
-    /* height: 30%; */
-    /* width: 30%; */
-    /* position: absolute; */
-    /* margin-left: auto; */
-    /* margin-right: auto; */
-    /* top: 35%; */
-    /* left: 35%; */
-    /* z-index: 1; */
 }
 
 .progress-line > svg {
     height: 100%;
     display: block;
+}
+
+#main-gallery-total-progress > .progressbar-text {
+    color: white !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 0;
+    margin: 0;
+    transform: translate(-50%, -50%);
 }
 
 .gallery {
@@ -51,33 +47,23 @@ body {
 }
 
 .image-container > img {
-    /* height: 100%; */
-    /* width: auto; */
     width: 100%;
     height: auto;
-    /* transition: visibility 1s, opacity 0.5s linear; */
 }
 
 .image-container {
-    min-height: 200px;
+    min-height: 250px;
     width: 33%;
     height: auto;
     box-sizing: border-box;
     padding: 5px;
-    /* height: 250px; */
-    /* min-width: 250px; */
-    /* margin: 5px; */
     position: relative;
 }
 
 .progress-circle {
-    /* height: 100px; */
-    /* width: 100px; */
     height: 30%;
-    width: 30%;
+    width: auto;
     position: absolute;
-    /* margin-left: auto; */
-    /* margin-right: auto; */
     top: 35%;
     left: 35%;
     z-index: 1;
@@ -91,11 +77,27 @@ body {
 .m-fadeOut {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity 1s linear 1.5s;
+    transition: visibility 0s, opacity 1s;
 }
 
 .m-fadeIn {
     visibility: visible;
     opacity: 1;
-    transition: visibility 0s, opacity 1s linear 1.5s;
+    transition: opacity ease-in-out 2s;
+}
+
+@media screen and (max-width: 1000px) {
+    .page-header {
+        flex-direction: column;
+    }
+
+    .image-container {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .image-container {
+        width: 100%;
+    }
 }
