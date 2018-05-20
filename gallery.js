@@ -62,10 +62,10 @@ class Gallery {
             }
             else if (xhr.readyState == 4) {
                 progressBarElement.remove();
-                // image.onload = () => {
-                //     image.classList.toggle('m-fadeOut');
-                //     image.classList.toggle("m-fadeIn");
-                // }
+                image.onload = () => {
+                    image.classList.toggle('m-fadeOut');
+                    image.classList.toggle("m-fadeIn");
+                }
 
                 if (xhr.status == 200) {
                     let blob = new Blob([xhr.response], {
@@ -77,9 +77,6 @@ class Gallery {
                 else {
                     image.src = self.defaultImageURL;
                 }
-
-                image.classList.toggle('m-fadeOut');
-                image.classList.toggle("m-fadeIn");
 
                 ++self.imagesLoaded;
                 console.log('TOTAL PROGRESS: ' + self.imagesLoaded / self.imagesURL.length);
